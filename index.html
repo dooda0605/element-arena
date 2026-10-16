@@ -128,7 +128,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .deck { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; width: 100%; max-width: 320px; }
 .deck button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 4px 2px 3px; min-height: 64px; font-size: 12px; }
 .deck img { width: 36px; height: 36px; }
-.deck img.art { transform: translateY(-22%) scale(2.3); } /* 1단계 그림은 512칸 안에 작게 그려져 있어 크게 키움 */
+.deck img.art { transform: translateY(-10%) scale(1.45); } /* 2단계 그림을 조금만 키움(1단계를 크게 키우면 이름을 가렸음) */
+.deck .nm { position: relative; z-index: 1; font-size: 12px; text-shadow: -1px -1px 0 var(--line), 1px -1px 0 var(--line), -1px 1px 0 var(--line), 1px 1px 0 var(--line); }
 .deck small { font-size: 10px; color: var(--gold); }
 .deck button.out { opacity: 0.5; }
 /* 적 속성(속성 라운드): 원소 색 글자 · 덱 카드의 유리/불리 */
@@ -146,6 +147,42 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .info b { color: var(--ink); }
 .info .r { color: var(--recipe); }
 .info ul { margin: 0; padding-left: 16px; }
+/* 정령 상세 창(사장님: 레벨별 그림·스킬 모션·능력치·강화하면 오르는 양) */
+.deckHint { margin: 0; font-size: 12px; }
+.unitOv { gap: 6px; }
+.unitOv > * { flex: none; } /* 창이 작아도 그림 칸이 눌려 사라지지 않게(넘치면 창이 스크롤) */
+.uTop { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; max-width: 330px; gap: 6px; }
+.uTop button { min-height: 40px; padding: 0; }
+.uTop h2 { margin: 0; font-size: 24px; }
+.uTop small { display: block; color: var(--muted); font-size: 11px; font-weight: 700; }
+.uStage { position: relative; width: 100%; max-width: 330px; height: 100px; border-radius: 14px; background: radial-gradient(ellipse 60% 40% at 38% 82%, rgba(255, 255, 255, 0.12), transparent 70%), rgba(255, 255, 255, 0.04); overflow: hidden; }
+.uStage img { position: absolute; bottom: 2px; height: 98px; width: 98px; object-fit: contain; left: calc(38% - 49px); }
+.uStage .uAtk { opacity: 0; animation: uAtk 2.4s infinite; }
+.uStage .uIdle { animation: uIdle 2.4s infinite; }
+.uStage .uFx { left: calc(72% - 50px); bottom: 10px; width: 100px; height: 100px; mix-blend-mode: screen; opacity: 0; animation: uFx 2.4s infinite; }
+@keyframes uIdle { 0%, 55% { opacity: 1; transform: translateY(0); } 27% { transform: translateY(-3px); } 58%, 82% { opacity: 0; } 86%, 100% { opacity: 1; } }
+@keyframes uAtk { 0%, 55% { opacity: 0; transform: translateX(0); } 58% { opacity: 1; transform: translateX(10px) scale(1.04); } 80% { opacity: 1; transform: translateX(4px); } 84%, 100% { opacity: 0; } }
+@keyframes uFx { 0%, 60% { opacity: 0; transform: scale(0.5); } 66% { opacity: 1; transform: scale(1); } 90% { opacity: 0; transform: scale(1.25); } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .uStage img { animation: none !important; } .uStage .uAtk, .uStage .uFx { display: none; } }
+.uTiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; width: 100%; max-width: 330px; }
+.uTiers button { padding: 2px 0 3px; min-height: 46px; font-size: 11px; display: flex; flex-direction: column; align-items: center; }
+.uTiers img { width: 30px; height: 30px; object-fit: contain; }
+.uTiers button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+.uBody { width: 100%; max-width: 330px; min-height: 120px; text-align: left; font-size: 12px; color: var(--muted); line-height: 1.5; }
+.uBody table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.uBody td { padding: 2px 4px; }
+.uBody td:first-child { color: var(--muted); }
+.uBody td:nth-child(2) { color: var(--ink); font-weight: 800; text-align: right; }
+.uBody td:nth-child(3) { color: #7dff9a; font-weight: 800; font-size: 11px; width: 64px; }
+.uBody p { margin: 0 0 5px; }
+.uBody b { color: var(--ink); }
+.uBody .mix { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.uBody .mix span { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+.uBody .mix img { width: 28px; height: 28px; object-fit: contain; }
+.uBody .mix .unk img { filter: brightness(0) opacity(0.5); }
+.uActs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; max-width: 330px; }
+.uActs button { min-height: 44px; font-size: 13px; padding: 4px 6px; }
+.uActs small { display: block; font-size: 10px; color: var(--muted); }
 .info .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .info .acts button { min-height: 44px; font-size: 13px; padding: 4px 6px; }
 .info .acts small { display: block; font-size: 10px; color: var(--muted); }
@@ -195,9 +232,6 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
         <button type="button" class="chArrow" id="chPrev" aria-label="이전 장">◀</button>
         <button type="button" data-map="horde" aria-pressed="true" class="horde" id="hordeBtn">타락의 물결<small>이야기 · 쏟아지는 적을 정화</small></button>
         <button type="button" class="chArrow" id="chNext" aria-label="다음 장">▶</button>
-        <button type="button" data-map="open" aria-pressed="false">들판<small>AI 대전</small></button>
-        <button type="button" data-map="bridges" aria-pressed="false">다리 둘<small>AI 대전</small></button>
-        <button type="button" data-map="draw" aria-pressed="false">도개교<small>번갈아 열림</small></button>
       </div>
       <button type="button" id="pvpBtn" class="pvpBtn">실시간 대전</button>
       <div class="row2"><button type="button" id="chBtn">챕터 지도</button><button type="button" id="upBtn">덱 · 강화</button></div>
@@ -230,8 +264,17 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
       <h2>덱 · 강화</h2>
       <p id="deckTip"></p>
       <div class="deck" id="deckList"></div>
-      <div class="info" id="deckInfo"></div>
+      <p class="deckHint">정령을 누르면 자세히 볼 수 있어요</p>
       <button type="button" id="upClose">닫기</button>
+    </div>
+    <div class="overlay unitOv" id="unitOv" hidden>
+      <div class="uTop"><button type="button" id="uPrev" aria-label="이전 정령">◀</button><div><h2 id="uName"></h2><small id="uSub"></small></div><button type="button" id="uNext" aria-label="다음 정령">▶</button></div>
+      <div class="uStage" id="uStage" aria-hidden="true"><img class="uIdle" alt=""><img class="uAtk" alt=""><img class="uFx" alt=""></div>
+      <div class="uTiers" id="uTiers" role="group" aria-label="단계"></div>
+      <div class="tabs" role="group" aria-label="상세 종류"><button type="button" data-ut="st" aria-pressed="true">능력치</button><button type="button" data-ut="sk" aria-pressed="false">스킬</button><button type="button" data-ut="mx" aria-pressed="false">합체</button></div>
+      <div class="uBody" id="uBody"></div>
+      <div class="uActs" id="uActs"></div>
+      <button type="button" id="uClose">닫기</button>
     </div>
     <div class="overlay" id="lvOv" hidden>
       <h2 id="lvTitle">탑 레벨 2!</h2>
@@ -1375,6 +1418,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   const FAM = { lifegoddess: "wood", prism: "light", icequeen: "ice", blackflame: "dark", plague: "poison", light: "light", crystal: "light", twilight: "light", sun: "fire", worldtree: "wood", dark: "dark", shadow: "dark", abyss: "dark", hellfire: "fire", poison: "poison", bog: "poison", venomvine: "poison", miasma: "poison", blizzard: "ice", wood: "wood", thorn: "wood", mud: "mud", wildfire: "fire", petal: "petal", mob: "rock", rush: "wind", knight: "sand", dragoon: "wind", guard: "rock", fortress: "rock", catapult: "meteor", archer: "bolt", lancer: "bolt", storm: "plasma", archmage: "aurora", mage: "fire", blade: "fire", crusader: "fire", priest: "water", sage: "steam", paladin: "leaf" };
   const SND = { light: ["boomlow", 1], dark: ["thud", 0.85], poison: ["splash", 0.95], ice: ["splash", 0.85], wood: ["wood", 1], mud: ["splash", 0.8], petal: ["thud", 1], wind: ["thud", 1], sand: ["stone", 1], rock: ["stone", 0.9], meteor: ["thump", 0.9], bolt: ["boomlow", 0.95], plasma: ["boomlow", 0.85], aurora: ["boomlow", 0.9], fire: ["boomlow", 0.9], water: ["splash", 1], steam: ["splash", 0.9], leaf: ["wood", 0.95] }; // 원소 → [타격음, 높낮이](사장님: 짹짹·긁는 소리·전자음 말고 둔탁하게 부딪히는 소리 — 플로우 뮤직 Soft Thud·Low Magic Impact·Low Splash·Heavy Thump·Wood Clash·Stone Bump)
   const FCOL = { light: "#fff3a0", dark: "#9a6bff", poison: "#c77dff", ice: "#bff4ff", wood: "#8fdc5a", mud: "#b08a5a", petal: "#ffb0d8", wind: "#9ff0d8", sand: "#e0b872", rock: "#cbb9a3", meteor: "#ff7a1a", bolt: "#b48cff", plasma: "#b49bff", aurora: "#6fe0c4", fire: "#ff6a2b", water: "#3fa9ff", steam: "#e8f4ff", leaf: "#7dff9a" };
+  const HIT_FX = { light: "holy_burst", dark: "shadow_slash", poison: "poison_splash", ice: "ice_freeze", wood: "vine_lash", mud: "mud_splash", petal: "petal_burst", wind: "wind_slash", sand: "wind_slash", rock: "earth_smash", meteor: "meteor_impact", bolt: "bolt_strike", plasma: "plasma_burst", aurora: "plasma_burst", fire: "fire_burst", water: "water_splash", steam: "steam_fog", leaf: "heal_aura" }; // 원소 계열 → 맞는 효과 그림
   const PATHS = {};
   const path = (d) => PATHS[d] || (PATHS[d] = new Path2D(d));
   const DRAW = 1.3;                                  // 유닛을 그리는 크기(부딪침 크기 rad 와 따로, 사장님: 이펙트가 잘 안 보임)
@@ -2026,7 +2070,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
         for (let i = 0; i < 5; i++) { const a = (i / 5) * Math.PI * 2 + e.t0; ctx.beginPath(); ctx.ellipse(e.x + Math.cos(a) * e.r * 0.5 * (0.5 + t), e.y - 6 + Math.sin(a) * e.r * 0.3 - t * 18, 4, 2, a, 0, Math.PI * 2); ctx.fill(); }
         ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
       } else if (e.k === "hit") { // 맞는 순간: 원소 계열마다
-        const nm = { light: "holy_burst", dark: "shadow_slash", poison: "poison_splash", ice: "ice_freeze", wood: "vine_lash", mud: "mud_splash", petal: "petal_burst", wind: "wind_slash", sand: "wind_slash", rock: "earth_smash", meteor: "meteor_impact", bolt: "bolt_strike", plasma: "plasma_burst", aurora: "plasma_burst", fire: "fire_burst", water: "water_splash", steam: "steam_fog", leaf: "heal_aura" }[e.fam];
+        const nm = HIT_FX[e.fam];
         if (nm && fxArt(nm, e.x, e.fam === "rock" ? e.gy - 6 : e.y, 32 * e.s, t, e.fam === "wind" || e.fam === "sand" ? e.a : 0)) continue;
         const col = FCOL[e.fam], k = 1 - t, sc = e.s;
         ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = k; ctx.lineCap = "round";
@@ -2257,7 +2301,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     if (!running) { $("foeWho").innerHTML = RULES.mode === "horde" ? '정화 <b id="lvFoe">0</b>' : `${lastPvp ? "상대" : "AI"} · 탑 Lv <b id="lvFoe">${bases?.[1 - mySide()]?.lv ?? 1}</b>`; RULES.match = RULES.mode === "horde" ? S.time : RULES.matchVs; } // 시작 전 시계 = 고른 판 길이
   }
   // 덱 · 강화 창: 열린 원소 카드(누르면 상세) → 능력치·스킬·만들 수 있는 원소 + 덱 넣기/빼기 + 원소 결정으로 강화
-  const cardImg = (t) => { const a = (window.UNIT_ART || {})[t + 1]; return `<img src="${a || spriteURL(t, 1)}"${a ? ' class="art"' : ""} alt="" aria-hidden="true">`; };
+  const cardImg = (t) => { const a = (window.UNIT_ART || {})[t + 2]; return `<img src="${a || spriteURL(t, 1)}"${a ? ' class="art"' : ""} alt="" aria-hidden="true">`; };
   const nameOf = (x) => (KEYS.includes(x) || found.has(x) ? TYPES[x].name : "???");
   let deckSel = null;
   function deckList() {
@@ -2265,20 +2309,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     if (!op.includes(deckSel)) deckSel = d[0];
     const fel = stageOf(RULES.stage).el; // 지금 고른 장의 적 속성
     $("deckTip").innerHTML = (pick ? `이번 판에 데려갈 원소 <b>${d.length}/${DECK_SIZE}</b>${d.length < DECK_SIZE ? "<br>빈 칸은 열린 순서대로 채워요" : ""}` : "열린 원소가 다 출전해요") + `<br>원소 결정 <b>${save.gems}</b>` + (fel ? `<span class="elTip">${RULES.stage}장 ${elTip(fel)}</span>` : "");
-    $("deckList").innerHTML = op.map((t) => { const i = d.indexOf(t), a = fel ? (beats(t, fel) ? '<em class="adv good">유리</em>' : beats(fel, t) ? '<em class="adv bad">불리</em>' : "") : ""; return `<button type="button" data-card="${t}" class="${i < 0 ? "out" : ""}${t === deckSel ? " sel" : ""}" aria-pressed="${t === deckSel}">${a}${i < 0 ? "" : `<span class="no">${i + 1}</span>`}${cardImg(t)}${TYPES[t].name}<small>Lv.${save.lv[t] || 1}</small></button>`; }).join("");
-    const t = deckSel, ty = TYPES[t], L = save.lv[t] || 1, max = L >= lvMax(), c = lvCost(L), [ua, uh, ul] = UP[t], inD = d.includes(t);
-    const first = Object.entries(RECIPES).filter(([k]) => k.split("+").includes(t)), firstT = first.map(([, v]) => v);
-    const ult = Object.entries(RECIPES).filter(([k]) => k.split("+").some((x) => firstT.includes(x)));
-    const row = ([k, v]) => `<li>${k.split("+").map(nameOf).join(" + ")} = <b class="r">${found.has(v) ? TYPES[v].name : "???"}</b>${TYPES[v].legend ? " · 궁극" : ""}</li>`;
-    const known = ([k]) => k.split("+").some((x) => KEYS.includes(x) || found.has(x)), hid = ult.filter((r) => !known(r)).length; // 재료를 하나도 모르는 궁극은 한 줄로
-    $("deckInfo").innerHTML = `<h3>${ty.name} <small>Lv.${L} · ${ty.tag} · 마나 ${ty.cost}</small></h3>
-      <div>${ty.ds}</div>${ty.beats.length ? `<div><b>유리한 상대</b> ${ty.beats.map(nameOf).join("·")}</div>` : ""}
-      <div>${ty.range > 40 ? "원거리" : "근접"} · ${ty.speed >= 50 ? "빠른 걸음" : ty.speed >= 32 ? "보통 걸음" : "느린 걸음"} · ${ty.rate <= 0.8 ? "빠르게 침" : ty.rate >= 1.2 ? "천천히 침" : "보통으로 침"}</div>
-      <div><b>강화</b> ${max ? "최고 레벨이에요" : `Lv.${L} → <b>Lv.${L + 1}</b> · 공격·체력${ul ? "·치유" : ""}이 올라요`}</div>
-      ${SKILL_NAME[t] ? `<div><b>합체 등장기</b> 「${SKILL_NAME[t]}」${SKILL_DS[t] ? `<br>${SKILL_DS[t]}` : ""}</div>` : ""}
-      ${TIER_DS[t] ? `<div><b>Lv.3</b> ${TIER_DS[t][0]}<br><b>Lv.4</b> ${TIER_DS[t][1]}</div>` : ""}
-      <div><b>만들 수 있는 원소</b><ul>${[...first, ...ult.filter(known)].map(row).join("")}${hid ? `<li>궁극 ${hid}개는 재료 레시피를 만들면 보여요</li>` : ""}</ul></div>
-      <div class="acts"><button type="button" data-act="deck"${pick && (inD || d.length < DECK_SIZE) ? "" : " disabled"}>${inD ? "덱에서 빼기" : "덱에 넣기"}<small>${pick ? (inD || d.length < DECK_SIZE ? `${d.length}/${DECK_SIZE}` : "덱이 가득 참") : "모두 출전"}</small></button><button type="button" data-act="up"${max || save.gems < c ? " disabled" : ""}>${max ? "최고 레벨" : `강화 Lv.${L + 1}`}<small>${max ? `한계 Lv.${lvMax()}` : `결정 ${c} / ${save.gems}`}</small></button></div>`;
+    $("deckList").innerHTML = op.map((t) => { const i = d.indexOf(t), a = fel ? (beats(t, fel) ? '<em class="adv good">유리</em>' : beats(fel, t) ? '<em class="adv bad">불리</em>' : "") : ""; return `<button type="button" data-card="${t}" class="${i < 0 ? "out" : ""}${t === deckSel ? " sel" : ""}" aria-pressed="${t === deckSel}">${a}${i < 0 ? "" : `<span class="no">${i + 1}</span>`}${cardImg(t)}<b class="nm">${TYPES[t].name}</b><small>Lv.${save.lv[t] || 1}</small></button>`; }).join("");
   }
   for (const [id, d] of [["chPrev", -1], ["chNext", 1]]) $(id).addEventListener("click", () => { RULES.stage = Math.max(1, Math.min(save.ch + 1, RULES.stage + d)); $("hordeBtn").click(); }); // 열린 장 고르기
   // ---------- 원소 도감 창(쪽마다 다섯) ----------
@@ -2331,12 +2362,43 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   });
   $("upBtn").addEventListener("click", () => { if (opened().length > DECK_SIZE) save.deck = deckOf(); deckList(); $("startOv").hidden = true; $("upOv").hidden = false; });
   $("upClose").addEventListener("click", () => { persist(); $("upOv").hidden = true; $("startOv").hidden = false; hordeLabel(); });
-  $("deckList").addEventListener("click", (e) => { const b = e.target.closest("[data-card]"); if (b) { deckSel = b.dataset.card; deckList(); } });
-  $("deckInfo").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-act]"), t = deckSel; if (!b) return;
-    if (b.dataset.act === "deck") { const i = save.deck.indexOf(t); if (i >= 0) save.deck.splice(i, 1); else if (save.deck.length < DECK_SIZE) save.deck.push(t); }
-    else { const L = save.lv[t] || 1; if (L >= lvMax() || save.gems < lvCost(L)) return; save.gems -= lvCost(L); save.lv[t] = L + 1; }
-    persist(); deckList();
+  $("deckList").addEventListener("click", (e) => { const b = e.target.closest("[data-card]"); if (b) { deckSel = b.dataset.card; uTier = 1; uTab = "st"; unitView(); $("upOv").hidden = true; $("unitOv").hidden = false; } });
+  // ---------- 정령 상세 창: 단계별 그림 · 공격 모션 · 능력치(강화하면 오르는 양) · 스킬 · 합체 ----------
+  let uTier = 1, uTab = "st";
+  const n1 = (v) => (Math.round(v * 10) / 10).toLocaleString("ko-KR");
+  function unitView() {
+    const t = deckSel, ty = TYPES[t], U = window.UNIT_ART || {}, FX = window.FX_ART || {}, L = save.lv[t] || 1, max = L >= lvMax(), c = lvCost(L), T = uTier, m = 2 ** (T - 1);
+    const [ua, uh, ul] = UP[t], op = opened(), pick = op.length > DECK_SIZE, d = pick ? save.deck : deckOf(), inD = d.includes(t);
+    $("uName").textContent = `${ty.name} 정령`; $("uSub").textContent = `${ty.tag} · 강화 Lv.${L}${max ? " (최고)" : ""} · 마나 ${ty.cost}`;
+    const st = $("uStage"), [idle, atk, fx] = st.querySelectorAll("img");
+    idle.src = U[t + T] || spriteURL(t, T); atk.src = U[t + T + "_atk"] || idle.src; fx.src = FX[HIT_FX[FAM[t]]] || ""; fx.hidden = !fx.src;
+    const SC = [1.9, 1.5, 1.2, 1], sz = Math.round(98 * SC[T - 1]); // 낮은 단계 그림은 칸 안에 작게 그려져 있어 키움
+    for (const im of [idle, atk]) Object.assign(im.style, { width: `${sz}px`, height: `${sz}px`, left: `calc(38% - ${sz / 2}px)`, bottom: `${2 - Math.round(sz * 0.1)}px` });
+    $("uTiers").innerHTML = [1, 2, 3, 4].map((k) => `<button type="button" data-tier="${k}" aria-pressed="${k === T}"><img src="${U[t + k] || spriteURL(t, k)}" alt="" style="transform: translateY(-8%) scale(${[1.8, 1.45, 1.15, 1][k - 1]})">${k}단계</button>`).join("");
+    for (const b of document.querySelectorAll("[data-ut]")) b.setAttribute("aria-pressed", b.dataset.ut === uTab);
+    if (uTab === "st") { // 능력치: 고른 단계 · 지금 강화 레벨 기준, 오른쪽 초록 = 강화 한 번에 오르는 양
+      const atkV = (ty.atk + ua * (L - 1)) * m, hpV = (ty.hp + uh * (L - 1)) * m, row = (k, v, up) => `<tr><td>${k}</td><td>${v}</td><td>${up && !max ? `▲ ${up}` : ""}</td></tr>`;
+      $("uBody").innerHTML = `<table>${row("체력", n1(hpV), n1(uh * m))}${row("공격", n1(atkV), n1(ua * m))}${ty.heal ? row("치유", n1((ty.heal + (ul || 0) * (L - 1)) * m), ul ? n1(ul * m) : "") : ""}
+        ${row("초당 피해", n1(atkV / ty.rate), n1((ua * m) / ty.rate))}${row("공격 간격", `${ty.rate}초`)}${row("사거리", ty.range > 40 ? `${ty.range} (원거리)` : "근접")}${row("이동 속도", ty.speed)}${row("뽑는 마나", T > 1 ? `${ty.cost} × ${m}` : ty.cost)}</table>`;
+    } else if (uTab === "sk") {
+      const weak = KEYS.filter((k) => beats(k, t)).map(nameOf).join("·");
+      $("uBody").innerHTML = `<p><b>특징</b> ${ty.ds}</p>${SKILL_NAME[t] ? `<p><b>합체 등장기 「${SKILL_NAME[t]}」</b><br>${SKILL_DS[t] ?? "합체가 끝나는 순간 한 번 터뜨려요"}</p>` : ""}${TIER_DS[t] ? `<p><b>3단계</b> ${TIER_DS[t][0]}<br><b>4단계</b> ${TIER_DS[t][1]}</p>` : ""}<p>${ty.beats.length ? `<b>유리</b> ${ty.beats.map(nameOf).join("·")}` : ""}${weak ? `${ty.beats.length ? " · " : ""}<b>불리</b> ${weak}` : ""}</p>`;
+    } else {
+      const first = Object.entries(RECIPES).filter(([k]) => k.split("+").includes(t)), firstT = first.map(([, v]) => v), ult = Object.entries(RECIPES).filter(([k]) => k.split("+").some((x) => firstT.includes(x)));
+      const cell = ([k, v]) => `<span class="${found.has(v) ? "" : "unk"}">${U[v] ? `<img src="${U[v]}" alt="">` : ""}${found.has(v) ? TYPES[v].name : "???"}<small>&nbsp;${k.split("+").filter((x) => x !== t).map(nameOf).join("+")}</small></span>`;
+      $("uBody").innerHTML = `<p><b>${ty.name} + 다른 정령</b> (같은 단계끼리)</p><div class="mix">${first.map(cell).join("")}</div>${ult.length ? `<p style="margin-top:6px"><b>궁극</b> ${ult.filter(([, v]) => found.has(v)).length}/${ult.length}개 찾음 · 재료 레시피를 2단계로</p>` : ""}`;
+    }
+    $("uActs").innerHTML = `<button type="button" data-act="deck"${pick && (inD || d.length < DECK_SIZE) ? "" : " disabled"}>${inD ? "덱에서 빼기" : "덱에 넣기"}<small>${pick ? (inD || d.length < DECK_SIZE ? `덱 ${d.length}/${DECK_SIZE}` : "덱이 가득 참") : "모두 출전"}</small></button><button type="button" data-act="up"${max || save.gems < c ? " disabled" : ""}>${max ? "최고 레벨" : `강화 Lv.${L + 1}`}<small>${max ? `한계 Lv.${lvMax()}` : `결정 ${c} / ${save.gems}`}</small></button>`;
+  }
+  $("uTiers").addEventListener("click", (e) => { const b = e.target.closest("[data-tier]"); if (b) { uTier = +b.dataset.tier; unitView(); } });
+  for (const b of document.querySelectorAll("[data-ut]")) b.addEventListener("click", () => { uTab = b.dataset.ut; unitView(); });
+  for (const [id, dd] of [["uPrev", -1], ["uNext", 1]]) $(id).addEventListener("click", () => { const op = opened(); deckSel = op[(op.indexOf(deckSel) + dd + op.length) % op.length]; unitView(); });
+  $("uClose").addEventListener("click", () => { persist(); $("unitOv").hidden = true; $("upOv").hidden = false; deckList(); });
+  $("uActs").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-act]"), t = deckSel; if (!b || b.disabled) return;
+    if (b.dataset.act === "deck") { if (!save.deck) save.deck = deckOf(); const i = save.deck.indexOf(t); if (i >= 0) save.deck.splice(i, 1); else if (save.deck.length < DECK_SIZE) save.deck.push(t); }
+    else { const L = save.lv[t] || 1; if (L >= lvMax() || save.gems < lvCost(L)) return; save.gems -= lvCost(L); save.lv[t] = L + 1; sound("lvup", 0.7, 1, 0); }
+    persist(); unitView();
   });
   let goNext = false;
   function start() {
