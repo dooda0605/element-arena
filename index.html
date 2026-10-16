@@ -47,6 +47,9 @@ canvas { display: block; touch-action: none; }
 .overlay > :first-child { margin-top: auto; }
 .overlay > :last-child { margin-bottom: auto; }
 .overlay h2 { font-family: var(--display); font-weight: 400; font-size: 28px; margin: 0; }
+.overlay h2.logo { font-size: 54px; line-height: 1.05; letter-spacing: 1px; padding: 4px 6px 8px; background: linear-gradient(180deg, #fff6c4 0%, var(--gold) 38%, #ff9f43 62%, var(--recipe) 100%); background-size: 100% 200%; -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 3px 0 var(--line)) drop-shadow(0 0 2px var(--line)) drop-shadow(0 0 16px rgba(199, 146, 255, 0.55)); animation: logoGlow 4s ease-in-out infinite alternate; } /* 첫 화면 제목(사장님: 크고 굵게 멋지게) */
+@keyframes logoGlow { to { background-position: 0 60%; } }
+@media (prefers-reduced-motion: reduce) { .overlay h2.logo { animation: none; } }
 .overlay p { margin: 0; color: var(--muted); line-height: 1.5; max-width: 30ch; }
 .overlay p b { color: var(--gold); }
 /* 정령 해금 연출: 궁극 빛이 돌고 정령이 톡 튀어나옴 */
@@ -72,7 +75,7 @@ canvas { display: block; touch-action: none; }
 .spawns .lock { font-size: 11px; color: var(--muted); font-weight: 800; }
 .spawns button.locked .cost { display: none; }
 /* 키 작은 폰(360×640): 「타락의 물결」 줄이 늘어 시작 버튼이 가려지지 않게 시작 화면을 조금 촘촘하게 */
-@media (max-height: 700px) { .overlay { gap: 6px; padding: 10px 14px; } .overlay h2 { font-size: 24px; } .overlay p { font-size: 13px; line-height: 1.4; } .maps button { padding: 4px; } button.big { padding: 8px 28px; } }
+@media (max-height: 700px) { .overlay { gap: 6px; padding: 10px 14px; } .overlay h2 { font-size: 24px; } .overlay h2.logo { font-size: 36px; padding-bottom: 4px; } .overlay p { font-size: 13px; line-height: 1.4; } .maps button { padding: 4px; } button.big { padding: 8px 28px; } }
 .maps button[aria-pressed="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 2px var(--gold); }
 .stats { display: grid; grid-template-columns: repeat(3, auto); gap: 4px 18px; color: var(--muted); font-size: 12px; }
 .stats b { display: block; font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--ink); }
@@ -123,7 +126,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .picks { display: grid; gap: 8px; width: 100%; max-width: 300px; }
 .picks button { text-align: left; font-size: 15px; }
 .picks small { display: block; color: var(--muted); font-size: 12px; font-weight: 700; }
-.picks .lv { float: right; color: var(--gold); font-size: 12px; }
+.picks .lv { float: right; color: var(--gold); font-size: 12px; } .picks .num { display: block; margin-top: 3px; color: var(--gold); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 /* 덱 · 강화 창: 원소 카드(누르면 상세) + 상세에서 덱 넣기·빼기와 강화 */
 .deck { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; width: 100%; max-width: 320px; }
 .deck button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 4px 2px 3px; min-height: 64px; font-size: 12px; }
@@ -161,7 +164,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .uTop button { min-height: 40px; padding: 0; }
 .uTop h2 { margin: 0; font-size: 24px; }
 .uTop small { display: block; color: var(--muted); font-size: 11px; font-weight: 700; }
-.uStage { position: relative; width: 100%; max-width: 330px; height: 100px; border-radius: 14px; background: radial-gradient(ellipse 60% 40% at 38% 82%, rgba(255, 255, 255, 0.12), transparent 70%), rgba(255, 255, 255, 0.04); overflow: hidden; }
+.uStage { position: relative; width: 100%; max-width: 330px; height: 116px; border-radius: 14px; background: radial-gradient(ellipse 60% 40% at 38% 82%, rgba(255, 255, 255, 0.12), transparent 70%), rgba(255, 255, 255, 0.04); overflow: hidden; }
 .uStage img { position: absolute; bottom: 2px; height: 98px; width: 98px; object-fit: contain; left: calc(38% - 49px); }
 .uStage .uAtk { opacity: 0; animation: uAtk 2.4s infinite; }
 .uStage .uIdle { animation: uIdle 2.4s infinite; }
@@ -173,7 +176,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .uStage.melee .uShot { display: none; }
 .uStage.skill .uIdle { animation: uIdleS 2.8s infinite; } .uStage.skill .uAtk { animation: uAtkS 2.8s infinite; } .uStage.skill .uMob { animation: uMobS 2.8s infinite; }
 .uStage.skill .uFx, .uStage.skill .uShot { display: none; } .uStage.skill .uSkill { animation: uSkill 2.8s infinite; } .uStage.skill .uNum { animation: uNumS 2.8s infinite; color: var(--gold); font-size: 18px; left: 64%; bottom: 46px; }
-.uMode { position: absolute; top: 5px; left: 5px; display: flex; gap: 4px; z-index: 2; }
+.uMode { display: flex; justify-content: center; gap: 6px; } /* 그림 칸 밖 위(사장님: 칸 안에 두면 큰 단계 그림과 겹침) */
 .uMode button { min-height: 26px; padding: 0 8px; font-size: 11px; border-radius: 9px; }
 .uMode button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
 @keyframes uMob { 0%, 62% { transform: none; filter: none; } 64% { transform: translateX(8px) rotate(6deg); filter: brightness(2.2); } 72% { transform: translateX(-3px); filter: none; } 80%, 100% { transform: none; } }
@@ -221,7 +224,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 #upClose { min-height: 44px; }
 /* 지금 장(시계 아래) · 챕터 지도(사장님: 지금 몇 챕터인지 보는 창) */
 .mid { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.chTag { font-size: 11px; font-weight: 800; color: var(--gold); white-space: nowrap; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+.chTag { font-size: 11px; font-weight: 800; color: var(--gold); text-align: center; line-height: 1.25; max-width: 150px; } .chTag span { display: block; white-space: nowrap; } /* 장 · 적 속성 / 제목 두 줄(사장님: 한 줄이면 잘림) */
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; max-width: 320px; }
 .row2 button { min-height: 40px; }
 .pvpBtn { width: 100%; max-width: 320px; min-height: 40px; border-color: var(--mine); }
@@ -257,7 +260,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   <div class="stage" id="stage">
     <canvas id="cv" aria-label="전장: 아래가 내 탑, 위가 AI 탑"></canvas>
     <div class="overlay" id="startOv">
-      <h2>원소 아레나</h2>
+      <h2 class="logo">원소 아레나</h2>
       <p>정령끼리 붙으면 뜨는 <b>합체 버튼</b>을 눌러 섞으세요.<br><span class="nw"><span class="y">노랑</span> 같은 원소 → 커짐</span><br><span class="nw"><span class="v">보라</span> 다른 원소 → 새 원소</span></p>
       <p id="modeTip"></p>
       <div class="maps" role="group" aria-label="모드와 맵">
@@ -302,8 +305,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     </div>
     <div class="overlay unitOv" id="unitOv" hidden>
       <div class="uTop"><button type="button" id="uPrev" aria-label="이전 정령">◀</button><div><h2 id="uName"></h2><small id="uSub"></small></div><button type="button" id="uNext" aria-label="다음 정령">▶</button></div>
-      <div class="uStage" id="uStage"><img class="uIdle" alt=""><img class="uAtk" alt=""><img class="uMob" alt=""><i class="uShot"></i><img class="uFx" alt=""><img class="uSkill" alt=""><b class="uNum"></b>
-        <div class="uMode" role="group" aria-label="보기"><button type="button" data-um="atk" aria-pressed="true">일반 공격</button><button type="button" data-um="skill" aria-pressed="false">합체 등장기</button></div></div>
+      <div class="uMode" id="uMode" role="group" aria-label="보기"><button type="button" data-um="atk" aria-pressed="true">일반 공격</button><button type="button" data-um="skill" aria-pressed="false">합체 등장기</button></div>
+      <div class="uStage" id="uStage"><img class="uIdle" alt=""><img class="uAtk" alt=""><img class="uMob" alt=""><i class="uShot"></i><img class="uFx" alt=""><img class="uSkill" alt=""><b class="uNum"></b></div>
       <div class="uTiers" id="uTiers" role="group" aria-label="단계"></div>
       <div class="tabs" role="group" aria-label="상세 종류"><button type="button" data-ut="st" aria-pressed="true">능력치</button><button type="button" data-ut="sk" aria-pressed="false">스킬</button><button type="button" data-ut="mx" aria-pressed="false">합체</button></div>
       <div class="uBody" id="uBody"></div>
@@ -432,7 +435,6 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     const A = a.el ? [a.el] : ELS[a.type] || [], B = b.el ? [b.el] : ELS[b.type] || [];
     return A.some((x) => B.some((y) => beats(x, y))) ? RULES.elAdv[0] : B.some((y) => A.some((x) => beats(y, x))) ? RULES.elAdv[1] : 1; // 속성 라운드: 유리 ×1.6 · 불리 ×0.6
   };
-  const LV_CAP = 30; // 강화 한계(깬 장 + 10 까지 열림)
   const recipeOf = (a, b) => (a === b ? null : RECIPES[[a, b].sort().join("+")] || null);
   // 성향(누구를 먼저 칠지·어떻게 움직일지): dive 뒷줄로 파고듦 · guard 근접을 막고 아군 원거리를 지킴 · shoot 다가오는 근접 먼저
   //                                       blast 적이 뭉친 곳 · support 아군 바로 뒤를 따라다님
@@ -448,7 +450,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     recipeTime: 0.5, bursts: true, tierSkills: true, // 스킬 안 A(합체 등장기)·B(단계별 강화), docs/SKILLS.md
     matchVs: 180, // 대전 5분 → 3분(사장님: 판 짧게), 탑 9000 → 6000: 먼저 밀린 쪽 47%, 기지 파괴 14%(SIM_RESULTS 「판 짧게」)
     aiIncome: 0.8, aiMerge: 0.4, aiCounter: 0.3, // 대전 AI 수입 배율·합체 확률(0.6초마다, 원래 0.8)·상성 맞춰 뽑기(원래 0.7)(사장님: 테스터들이 「대전 AI가 세다」). 거울 측정에선 원래대로
-    stage: 1, bossAt: [120], hordeStretch: 1, mode: "horde", hordeTime: 180, hordeHp: 4000, mobCap: 260, flood: 2, mobMana: 0.5, sweep: 18, hordeRate: [1, 30], mobGrow: 150, eliteT3: 135, mergeReach: 2.5, freshT: 10, purify: 0.45, lordHp: 1, elAdv: [1.6, 0.6], raidHp: { mid: [0.08, 1.6], lord: [0.25, 3] }, gemMob: 0.04, gemElite: 0.4, gemBoss: 12, gemLord: 25, gemClear: [20, 5], foe: 1, foeAtk: 1, foeSpeed: 1, affix: [], waveBase: 12, killMana: 0.25, holdY: 185 }; // flood = 잔챙이 수 배율, mobMana = 잔챙이 처치 마나 배율, sweep = 휩쓸기 반지름(+단계×5) // holdY: 몰려온다 진 치는 높이(포털 바로 아래, 위에서 아래로 0~600) // 몰려온다 수치: 내 쪽 AI 30판 87% 버팀(SIM_RESULTS 「몰려온다」) // killMana: 몰려온다에서 적을 잡을 때 마나(가치 × 이만큼) // mode: versus = 1:1 대전, horde = 몰려온다(스테이지 시제품) // match = 라운드 5분(사장님). baseHp 9000 = 스킬 추가 뒤 평균 3분 26초, 기지 파괴 66% // burst = AI도 밀릴 때 모았다가 연타 합체로 냄
+    stage: 1, bossAt: [120], hordeStretch: 1, mode: "horde", hordeTime: 180, hordeHp: 4000, mobCap: 260, flood: 2, mobMana: 0.5, sweep: 18, hordeRate: [1, 30], mobGrow: 150, eliteT3: 135, mergeReach: 2.5, freshT: 10, purify: 0.45, lordHp: 1, elAdv: [1.6, 0.6], raidHp: { mid: [0.08, 1.25], lord: [0.25, 3] }, gemMob: 0.04, gemElite: 0.4, gemBoss: 12, gemLord: 25, gemClear: [20, 5], foe: 1, foeAtk: 1, foeSpeed: 1, affix: [], waveBase: 12, killMana: 0.25, holdY: 185 }; // flood = 잔챙이 수 배율, mobMana = 잔챙이 처치 마나 배율, sweep = 휩쓸기 반지름(+단계×5) // holdY: 몰려온다 진 치는 높이(포털 바로 아래, 위에서 아래로 0~600) // 몰려온다 수치: 내 쪽 AI 30판 87% 버팀(SIM_RESULTS 「몰려온다」) // killMana: 몰려온다에서 적을 잡을 때 마나(가치 × 이만큼) // mode: versus = 1:1 대전, horde = 몰려온다(스테이지 시제품) // match = 라운드 5분(사장님). baseHp 9000 = 스킬 추가 뒤 평균 3분 26초, 기지 파괴 66% // burst = AI도 밀릴 때 모았다가 연타 합체로 냄
   // 타락의 물결(이야기, 사장님: 기본 모드 · 판 길게 4·5·6분): 장마다 버틸 시간·세기. 적이 늘어나는 속도는 stretch 로 늘려
   // 예전 2~3분 판의 곡선을 그대로 길게 편다(시간 / stretch = 예전 판의 시각). boss = 대장(타락한 대지 거인)이 나오는 실제 초(15의 배수)
   // unlock = 이 장을 깨면 열리는 정령. 처음엔 바람·돌·불만(사장님: 처음 하는 사람이 알아야 할 게 적게)
@@ -463,7 +465,12 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   // 7장부터 끝없이(로그라이트, 사장님: 100장 이상 · 갈수록 적이 강해지게): 6장 틀에 장마다 적 체력(잔챙이·정예·대장)과 정예·대장 공격, 내 탑 체력이 foe 배율만큼 오르고 변이가 붙는다.
   // 같은 장은 늘 같은 이름·변이(장 번호로 정한 난수). 30장마다 변이 하나 더(최대 3), 10장마다 대장전(대장 넷, 군주 결정 두 배)
   const AFFIX = { swift: ["질주", "적이 빨라짐"], hard: ["단단한 껍질", "정예·대장이 단단해짐"], swarm: ["끝없는 무리", "잔챙이가 더 많이"], elite: ["정예 부대", "정예가 둘씩"], twin: ["쌍둥이 대장", "대장이 둘씩"], fury: ["광기", "정예·대장 공격이 세짐"] };
-  const MOOD = ["잿빛", "검붉은", "울부짖는", "얼어붙은", "무너진", "끝없는", "잠든", "타오르는", "가라앉은", "뒤틀린"], PLACE = ["회랑", "제단", "심연", "성소", "폭포", "숲", "균열", "첨탑", "호수", "평원"];
+  const MOOD = ["잿빛", "검붉은", "울부짖는", "얼어붙은", "무너진", "끝없는", "잠든", "타오르는", "가라앉은", "뒤틀린", "버려진", "속삭이는", "메마른", "갈라진", "빛바랜", "저주받은", "잊힌", "흔들리는", "녹슨", "젖은", "굶주린", "일그러진", "피어나는", "꺼져가는", "고요한", "부서진"],
+    PLACE = ["회랑", "제단", "심연", "성소", "폭포", "숲", "균열", "첨탑", "호수", "평원", "협곡", "신전", "동굴", "계단", "다리", "늪지", "사막", "언덕", "묘지", "정원", "광산", "요새", "항구", "미궁", "고원"];
+  const chTitle = (n) => { // 끝없는 장 이름(사장님: 다시 돌지 않게): 꾸밈말 26 × 곳 25 = 650장까지 겹치지 않음(26+1 과 25 가 서로소라 장마다 둘 다 바뀜), 그 뒤엔 Ⅱ·Ⅲ
+    const i = n - STAGES.length - 1, k = MOOD.length * PLACE.length, j = i % k, r = Math.floor(i / k);
+    return `${MOOD[j % MOOD.length]} ${PLACE[(j + Math.floor(j / MOOD.length)) % PLACE.length]}${r ? " " + "ⅡⅢⅣⅤⅥⅦⅧⅨⅩ"[Math.min(r - 1, 8)] : ""}`;
+  };
   // 해금(사장님: 첫 판은 바람·돌, 1장을 깨면 불): 장 n 을 깨면 UNIT_ORDER[n + 1]. 새로 열린 정령은 다음 장 이야기 앞에 소개
   const awoke = (n) => { const t = UNIT_ORDER[n]; return n >= 2 && t ? `<b class="y">${TYPES[t].name} 정령</b>이 깨어났어요.<br>` : ""; };
   // 적 속성(사장님: 처음엔 무속성, 장마다 새로 열린 정령에 맞춰): 1·2장 무속성 · 3 불 ← 물 · 4 물 ← 번개 · 5 돌 ← 나무 · 6 어둠 ← 빛 · 7 빛 ← 어둠 · 8 나무 ← 독, 9장부터 아홉 원소를 돌아가며
@@ -489,8 +496,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     const rnd = (k) => Math.floor(((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 2 ** 32) * k);
     const d = n - STAGES.length, big = n % 10 === 0, keys = Object.keys(AFFIX), affix = [], S = curve(n);
     while (affix.length < Math.min(3, 1 + Math.floor((d - 1) / 30))) { const k = keys[rnd(keys.length)]; if (!affix.includes(k)) affix.push(k); }
-    const foe = Math.round((1 + 0.02 * d) * 100) / 100;
-    return { ...S, hp: Math.round(S.hp * foe), title: `${MOOD[rnd(MOOD.length)]} ${PLACE[rnd(PLACE.length)]}${big ? "의 왕좌" : ""}`, story: `${big ? "대장전! 군주가 결정을 와르르 떨어뜨려요. " : ""}타락이 더 깊어져 적이 단단하고 세졌어요. 내 탑도 함께 단단해져요.<br>변이: ${affix.map((k) => AFFIX[k][0]).join(" · ")}`, foe, affix, unlock: null };
+    const tf = Math.round((1 + 0.02 * d) * 100) / 100, foe = Math.round(tf * (affix.length >= 3 ? 0.75 : 1) * 100) / 100; // 변이가 셋인 장은 적 배율을 덜(셋이 겹치면 Lv.30으로도 못 깼음), 내 탑은 그대로
+    return { ...S, hp: Math.round(S.hp * tf), title: `${chTitle(n)}${big ? "의 왕좌" : ""}`, story: `${big ? "대장전! 군주가 결정을 와르르 떨어뜨려요. " : ""}타락이 더 깊어져 적이 단단하고 세졌어요. 내 탑도 함께 단단해져요.<br>변이: ${affix.map((k) => AFFIX[k][0]).join(" · ")}`, foe, affix, unlock: null };
   }
   const UNIT_ORDER = ["rush", "guard", "mage", "priest", "archer", "wood", "light", "dark", "poison"]; // 처음 3종 + 장을 깰 때마다 하나씩
   // ---------- 이어지는 기록(이 브라우저에만): 발견한 원소·깬 장·최고 처치·대전 승리·첫 판 길잡이·원소 결정·정령 강화 ----------
@@ -511,7 +518,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   const vsDeck = () => { const d = (save.deck || []).filter((t) => KEYS.includes(t)); for (const t of [...UNIT_ORDER, ...KEYS]) if (d.length < DECK_SIZE && !d.includes(t)) d.push(t); return d; }; // 대전 내 쪽 버튼(원소가 늘어 칸보다 많을 때)
   const aiDeck = [KEYS, KEYS]; // 대전 AI 덱: 판마다 기본 원소 중 덱 칸만큼 무작위(사람처럼 5개 — 9개 다 쓰면 레시피 짝이 드물어 역전이 줄었음)
   const avail = (side) => (side === 0 && RULES.mode === "horde" && !RULES.allUnits ? (RULES.deckTest || (RULES.availN ? UNIT_ORDER.slice(0, RULES.availN) : deckOf())) : RULES.mode === "versus" ? aiDeck[side] : KEYS); // availN: 측정용(그 장을 처음 하는 사람의 정령 수) · deckTest: 측정용 덱
-  const lvMax = () => Math.min(LV_CAP, 10 + save.ch), lvCost = (L) => 20 * L;
+  const lvMax = () => 10 + save.ch, // 강화 한계 = 깬 장 + 10(사장님: Lv.30 에서 멈추면 60장부터 벽, 2026-10-16)
+    lvCost = (L) => 20 * L;
   const lvOf = (t) => (KEYS.includes(t) ? RULES.lvTest ?? (save.lv[t] || 1) : (() => { const [a, b] = Object.entries(RECIPES).find(([, v]) => v === t)[0].split("+"); return (lvOf(a) + lvOf(b)) / 2; })()); // lvTest: 측정용
   const BONUS = {}; // 이번 판 내 쪽 종류별 [공격, 체력, 치유] 더하기(1단계 기준)
   function setLevels() {
@@ -609,7 +617,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     }
     const by = t.r ? t.y - 10 : t.y - lift(t);
     if (!ty.mob && actx && actx.currentTime - hitLast > 0.12) { const [k, r] = TYPES[info.type].legend ? ["thump", 0.95] : SND[FAM[info.type]] ?? ["thud", 1], mine = side === mySide(); hitLast = actx.currentTime; sound(k, mine ? 0.32 : 0.16, Math.min(1, r) * (mine ? 0.95 : 0.85), 0); } // 타격음(사장님: 짹짹거려 거슬림): 전체에서 0.12초에 하나, 작게, 높이지 않음, 상대는 더 낮고 작게
-    if (!ty.mob) fx.push({ k: "hit", fam: FAM[info.type], tier: Math.min(4, info.tier + (ty.legend ? 1 : 0)), x: t.x, y: by, gy: t.r ? t.y + 20 : t.y, a: Math.atan2(t.y - from.y, t.x - from.x), s: 1.6 * (0.7 + 0.25 * info.tier), t0: time, dur: 0.5 });
+    const els = ty.legend && ELS[info.type].filter((k) => FAM[k] !== FAM[info.type]), leg = els && els.length ? FAM[els[Math.floor(time * 7) % els.length]] : null; // 궁극(사장님: 일반 공격도 화려하게): 재료 원소 하나의 4단계 타격이 번갈아 겹침
+    if (!ty.mob) fx.push({ k: "hit", leg, fam: FAM[info.type], tier: Math.min(4, info.tier + (ty.legend ? 1 : 0)), x: t.x, y: by, gy: t.r ? t.y + 20 : t.y, a: Math.atan2(t.y - from.y, t.x - from.x), s: 1.6 * (0.7 + 0.25 * info.tier), t0: time, dur: 0.5 });
     if (info.crit) { fx.push({ k: "crit", x: t.x, y: by, t0: time, dur: 0.85 }); hitstop = Math.max(hitstop, 0.06); sound("thump", 0.6, 1.05); } // 치명: 묵직한 쿵(예전 날카로운 치명음 대신)
     const status = (e, k) => {
       if (e.r || e.hp <= 0) return;
@@ -678,6 +687,11 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   function mergeBurst(u) {
     bigNum = true; try { burstNow(u); } finally { bigNum = false; }
     fx.push({ k: "skillfx", x: u.x, y: u.y, t0: time, dur: 1.05, sk: SKILL_FX[FAM[u.type]] || "skill_fire", col: FCOL[FAM[u.type]] || "#fff", sz: 150 + 24 * u.tier + (TYPES[u.type].legend ? 60 : 0), side: u.side }); // 합체 등장기(사장님: 일반 공격과 똑같아 허접해 보임)
+    if (TYPES[u.type].legend) { // 궁극(사장님: 스킬도 더 화려하게): 재료 원소 넷의 스킬 이펙트가 둘레에서 함께 솟고 금빛 큰 고리 · 화면 흔들림
+      const els = ELS[u.type].filter((k) => SKILL_FX[FAM[k]] && FAM[k] !== FAM[u.type]);
+      els.forEach((k, i) => { const a = (i / els.length) * Math.PI * 2 - Math.PI / 2; fx.push({ k: "skillfx", x: u.x + Math.cos(a) * 70, y: u.y + Math.sin(a) * 34, t0: time, dur: 1.2, sk: SKILL_FX[FAM[k]], col: FCOL[FAM[k]] || "#fff", sz: 150, side: u.side }); });
+      fx.push({ k: "sweep", x: u.x, y: u.y, r: 240, t0: time, dur: 1 }); shake = Math.max(shake, 9);
+    }
   }
   function burstNow(u) {
     const side = u.side, a = atkOf(u.type, u.tier, side);
@@ -1080,10 +1094,22 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     const pref = pressed ? ["flame", "cannon", "frost", "wall"] : ["power", "gold", "merge", "cannon"];
     return o.find((k) => pref.includes(k)) || o[0];
   }
+  const fx1 = (v) => String(Math.round(v * 100) / 100);
+  function upgNum(k, L) { // 레벨업 카드의 지금 → 다음 수치(사장님: 업그레이드 수치가 보이게)
+    const b = bases[0], to = (f, u = "") => `<span class="nw">${f(L)}${u} → ${f(L + 1)}${u}</span>`;
+    if (k === "cannon") return `<span class="nw">피해 ${to((n) => RULES.cannonDmg * n)}</span> · <span class="nw">간격 ${to((n) => (n ? fx1(Math.max(0.5, 1.2 - 0.15 * (n - 1))) : "—"), "초")}</span>`;
+    if (k === "flame") return `초당 피해 ${to((n) => 6 * n)}`;
+    if (k === "frost") return `적 느려짐 ${to((n) => 20 * n, "%")}`;
+    if (k === "wall") return `<span class="nw">최대 체력 ${Math.round(b.maxHp)} → ${Math.round(b.maxHp + 0.1 * RULES.baseHp)}</span> · <span class="nw">회복 +${Math.round(0.15 * RULES.baseHp)}</span>`;
+    if (k === "power") return `공격·치유 ${to((n) => "+" + 20 * n, "%")}`;
+    if (k === "merge") return `합체 시간 ${to((n) => fx1(MERGE_TIME - 0.15 * n), "초")}`;
+    if (k === "gold") return `마나 초당 ${to((n) => fx1(INCOME + 0.5 * n))}`;
+    return "";
+  }
   function showPick() {
     if (!picks.length) { $("lvOv").hidden = true; return; }
     $("lvTitle").textContent = `탑 레벨 ${bases[0].lv - picks.length + 1}!`;
-    $("picks").innerHTML = picks[0].map((k, i) => `<button type="button" data-pick="${i}">${UPG[k].name}<span class="lv">${k === "wall" ? "" : `Lv ${bases[0].up[k]} → ${bases[0].up[k] + 1}`}</span><small>${UPG[k].ds}</small></button>`).join("");
+    $("picks").innerHTML = picks[0].map((k, i) => `<button type="button" data-pick="${i}">${UPG[k].name}<span class="lv">${k === "wall" ? "" : `Lv ${bases[0].up[k]} → ${bases[0].up[k] + 1}`}</span><small>${UPG[k].ds}</small><span class="num">${upgNum(k, bases[0].up[k] || 0)}</span></button>`).join("");
     $("lvOv").hidden = false;
   }
   function choose(i) {
@@ -1172,7 +1198,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     raid();
     while (midIdx < RULES.mids.length && stats.kills >= RULES.goal * RULES.mids[midIdx]) { // 중간 보스(사장님): 정화 막대가 정한 비율에 닿을 때마다, 쓰러뜨리면 결정 와르르
       midIdx++;
-      for (let i = RULES.affix.includes("twin") ? 2 : 1; i > 0; i--) boss(VW / 2 + (i - 1) * 70, 120, RULES.midSpec[0], RULES.midSpec[1], 1, "mid");
+      for (let i = RULES.affix.includes("twin") ? 2 : 1; i > 0; i--) { const u = boss(VW / 2 + (i - 1) * 70, 120, RULES.midSpec[0], RULES.midSpec[1], i > 1 ? 0.35 : 1, "mid"); if (i > 1) { u.raid = 1.2; u.slamAt += 5; } } // 쌍둥이 둘째는 체력 35%·작게·강타 엇갈리게(둘이 같이 치면 60장부터 군주 전에 탑이 무너졌음)
       fx.push({ k: "announce", text: `중간 보스 등장! (${midIdx}/${RULES.mids.length})`, col: C.gold, t0: time, dur: 1.8 }); bgFx.boss = bgFx.spawn = time; shake = Math.max(shake, 5); sound("boss", 0.8, 1.15, 0);
     }
     if (!lord && !taste && RULES.stage === 1 && stats.kills >= RULES.goal) { // 1장 궁극 맛보기(사장님: 「와 재밌다」): 태풍이 내려와 화면을 쓸고 8초 뒤 돌아감
@@ -1184,8 +1210,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
       if (units.includes(taste.u)) { taste.u.hp = 0; taste.u.absorbed = true; fx.push({ k: "boom", x: taste.u.x, y: taste.u.y, t0: time, dur: 0.8, r: 50, elem: "light" }); }
       fx.push({ k: "announce", text: "태풍은 4장부터 직접 만들어요!", col: C.gold, t0: time, dur: 2.2 });
     }
-    if (!lord && (!taste || taste.gone) && stats.kills >= RULES.goal) { // 정화 목표 달성 → 타락의 군주(대지 거인 3단계 체력 lordHp 배. 끝없는 장의 대장전은 4단계: 체력은 같고 공격·크기 두 배)
-      const t4 = RULES.stage > STAGES.length && RULES.stage % 10 === 0, [lt, ln, lh] = RULES.lordSpec ?? ["fortress", t4 ? 4 : 3, RULES.lordHp / (t4 ? 2 : 1)];
+    if (!lord && (!taste || taste.gone) && stats.kills >= RULES.goal) { // 정화 목표 달성 → 타락의 군주(대지 거인 3단계 체력 lordHp 배. 끝없는 장의 대장전은 4단계: 체력은 같고 공격·크기 두 배. 첫 대장전 10장은 3단계)
+      const t4 = RULES.stage >= 20 && RULES.stage % 10 === 0, [lt, ln, lh] = RULES.lordSpec ?? ["fortress", t4 ? 4 : 3, RULES.lordHp / (t4 ? 2 : 1)];
       lord = boss(VW / 2, 140, lt, ln, lh, "lord"); cutIn(lord.type, "라운드 보스 등장!", true, lord.tier); // 싸우는 곳 한가운데(y 140)로: 위에 서서 멀리 쏘면 내 정령이 못 닿음
       fx.push({ k: "announce", text: "라운드 보스 · 타락의 군주! 쓰러뜨리면 정화", col: C.foe, t0: time, dur: 2.4 }); bgFx.boss = bgFx.spawn = time; shake = Math.max(shake, 8); sound("boss", 1, 0.8, 0);
     }
@@ -1249,6 +1275,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     if (a.tier !== b.tier || a.tier >= MAX_TIER) return false;
     if (a.type === b.type) return !TYPES[a.type].legend;
     const r = RULES.recipes && RULES.recipeSides[side] && recipeOf(a.type, b.type);
+    if (r && RULES.recipeOnly && side === 0 && !RULES.recipeOnly.includes(r)) return false; // 측정용: 그 장까지 열린 합체만(진행표)
     return !!r && !(TYPES[r].legend && a.tier < (TYPES[r].minTier ?? RULES.legendTier));
   }
   function pairsOf(side) {
@@ -2074,7 +2101,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
       } else if (e.k === "warn") { // 보스 강타 예고: 붉은 원이 안에서부터 차오름
         ctx.save(); ctx.globalAlpha = 0.22 + 0.12 * Math.sin(time * 24); ctx.fillStyle = "#ff3040"; ctx.beginPath(); ctx.ellipse(e.x, e.y, e.r * t, e.r * t * 0.6, 0, 0, Math.PI * 2); ctx.fill();
         ctx.globalAlpha = 0.9; ctx.strokeStyle = "#ff3040"; ctx.lineWidth = 3; ctx.setLineDash([7, 5]); ctx.beginPath(); ctx.ellipse(e.x, e.y, e.r, e.r * 0.6, 0, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
-      } else if (e.k === "sweep") { // 궁극 쓸기: 금빛 큰 고리가 퍼짐
+      } else if (e.k === "sweep" && e.r >= 200) { // 궁극 쓸기: 금빛 큰 고리가 퍼짐(작은 휩쓸기 고리는 아래)
         const r = e.r * (0.12 + 0.88 * (1 - (1 - t) ** 3));
         ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = 1 - t; ctx.strokeStyle = C.gold; ctx.lineWidth = 20 * (1 - t) + 2;
         ctx.beginPath(); ctx.ellipse(e.x, e.y, r, r * 0.6, 0, 0, Math.PI * 2); ctx.stroke(); ctx.strokeStyle = "#fff"; ctx.lineWidth = 5 * (1 - t); ctx.stroke(); ctx.restore();
@@ -2117,8 +2144,12 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
         for (let i = 0; i < 5; i++) { const a = (i / 5) * Math.PI * 2 + e.t0; ctx.beginPath(); ctx.ellipse(e.x + Math.cos(a) * e.r * 0.5 * (0.5 + t), e.y - 6 + Math.sin(a) * e.r * 0.3 - t * 18, 4, 2, a, 0, Math.PI * 2); ctx.fill(); }
         ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
       } else if (e.k === "hit") { // 맞는 순간: 원소 계열마다
+        if (e.leg) { // 궁극: 금빛 고리 + 재료 원소 타격을 하나 더(조금 비켜서·돌려서)
+          const k2 = hitFx(e.leg, 4); if (k2) fxArt(k2, e.x + 8, e.y - 6, 32 * e.s * 1.25, t, e.a + 1.2, 0.85);
+          ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = 0.8 * (1 - t); ctx.strokeStyle = C.gold; ctx.lineWidth = 4 * (1 - t) + 1; const rr = (10 + 30 * t) * e.s; ctx.beginPath(); ctx.ellipse(e.x, e.y, rr, rr * 0.55, 0, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+        }
         const hk = hitFx(e.fam, e.tier), nm = hk || HIT_FX[e.fam]; // 단계별 그림이 있으면 그것(사장님: 1~4단계 공격 이펙트를 다르게), 없으면 예전 한 장
-        if (nm && fxArt(nm, e.x, e.fam === "rock" ? e.gy - 6 : e.y, 32 * e.s * (hk ? 0.9 + 0.12 * (e.tier || 1) : 1), t, !hk && (e.fam === "wind" || e.fam === "sand") ? e.a : 0)) continue;
+        if (nm && fxArt(nm, e.x, e.fam === "rock" ? e.gy - 6 : e.y, 32 * e.s * (hk ? 0.9 + 0.12 * (e.tier || 1) : 1) * (e.leg ? 1.35 : 1), t, !hk && (e.fam === "wind" || e.fam === "sand") ? e.a : 0)) continue;
         const col = FCOL[e.fam], k = 1 - t, sc = e.s;
         ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = k; ctx.lineCap = "round";
         if (e.fam === "wind" || e.fam === "sand") { // 초승달 바람 칼날 셋
@@ -2333,7 +2364,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     tut.on = false; $("spawns").classList.remove("hint");
     if (done) { save.tut = true; persist(); }
   }
-  function chTag() { const S = stageOf(RULES.stage); if (lastPvp && !running) return; $("chTag").textContent = RULES.mode === "horde" ? `${RULES.stage}장 · ${S.title}${S.el ? ` · 적 ${elName(S.el)}` : ""}` : "대전"; }
+  function chTag() { const S = stageOf(RULES.stage); if (lastPvp && !running) return; $("chTag").innerHTML = RULES.mode === "horde" ? `<span>${RULES.stage}장 · ${S.el ? `적 ${elName(S.el)}` : "무속성"}</span><span>${S.title}</span>` : "대전"; }
   const elSpan = (el) => `<span class="el" style="color:${elCol(el)}">${elName(el)}</span>`;
   const elTip = (el) => { // 「적 속성 불 · 강한 원소 바람·물 · 약한 원소 돌·나무」(안 열린 원소는 흐리게)
     const op = opened(), list = (ks) => ks.map((k) => (op.includes(k) ? elSpan(k) : `<span style="opacity:.5">${elName(k)}(잠김)</span>`)).join("·");
@@ -2388,8 +2419,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
   $("bookNext").addEventListener("click", () => { bookPg++; bookList(); });
   for (const b of document.querySelectorAll("[data-bt]")) b.addEventListener("click", () => { bookTab = b.dataset.bt; bookPg = 0; bookSel = null; bookList(); });
   const CH_N = 5; let chPg = -1; // 챕터 지도 쪽(처음 열 땐 지금 장이 있는 쪽)
-  function chList() { // 깬 장 + 지금 장 + 앞으로 3장(잠김). 열린 장을 누르면 그 장으로
-    const U = window.UNIT_ART || {}, last = Math.max(save.ch + 4, STAGES.length);
+  function chList() { // 1~100장(그 뒤는 깬 장 + 10까지) 모두 보임, 안 깬 장은 잠김. 열린 장을 누르면 그 장으로
+    const U = window.UNIT_ART || {}, last = Math.max(save.ch + 10, 100);
     $("chSum").innerHTML = `깬 장 <b>${save.ch}</b> · 지금 <b>${RULES.stage}장</b> · 원소 결정 <b>${save.gems}</b>`;
     const pages = Math.ceil(last / CH_N); if (chPg < 0) chPg = Math.floor((RULES.stage - 1) / CH_N); chPg = Math.max(0, Math.min(pages - 1, chPg));
     $("chPage").textContent = `${chPg + 1} / ${pages}`; $("chPrevPg").disabled = chPg <= 0; $("chNextPg").disabled = chPg >= pages - 1;
@@ -2437,7 +2468,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     idle.src = U[t + T] || spriteURL(t, T); atk.src = U[t + T + "_atk"] || idle.src; fx.src = FX[`hit_${(SKILL_FX[FAM[t]] || "").slice(6)}${T}`] || FX[HIT_FX[FAM[t]]] || ""; fx.hidden = !fx.src;
     mob.src = U.mob1 || ""; skill.src = FX[SKILL_FX[FAM[t]]] || ""; st.style.setProperty("--sc", FCOL[FAM[t]] || "#fff");
     st.classList.toggle("melee", ty.range <= 40); st.classList.toggle("skill", uMode === "skill");
-    for (const b of st.querySelectorAll("[data-um]")) b.setAttribute("aria-pressed", b.dataset.um === uMode);
+    for (const b of $("uMode").querySelectorAll("[data-um]")) b.setAttribute("aria-pressed", b.dataset.um === uMode);
     st.querySelector(".uNum").textContent = uMode === "skill" ? `「${SKILL_NAME[t] ?? "등장기"}」!` : n1((ty.atk + UP[t][0] * (L - 1)) * m * (ty.charge ? ty.chargeX || 2 : 1)) + (ty.charge ? "!" : "");
     const SC = [1.9, 1.5, 1.2, 1], sz = Math.round(98 * SC[T - 1]); // 낮은 단계 그림은 칸 안에 작게 그려져 있어 키움
     for (const im of [idle, atk]) Object.assign(im.style, { width: `${sz}px`, height: `${sz}px`, left: `calc(38% - ${sz / 2}px)`, bottom: `${2 - Math.round(sz * 0.1)}px` });
@@ -2464,7 +2495,7 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
     }
     $("uActs").innerHTML = `<button type="button" data-act="deck"${pick && (inD || d.length < DECK_SIZE) ? "" : " disabled"}>${inD ? "덱에서 빼기" : "덱에 넣기"}<small>${pick ? (inD || d.length < DECK_SIZE ? `덱 ${d.length}/${DECK_SIZE}` : "덱이 가득 참") : "모두 출전"}</small></button><button type="button" data-act="up"${max || save.gems < c ? " disabled" : ""}>${max ? "최고 레벨" : `강화 Lv.${L + 1}`}<small>${max ? `한계 Lv.${lvMax()}` : `결정 ${c} / ${save.gems}`}</small></button>`;
   }
-  $("uStage").addEventListener("click", (e) => { const b = e.target.closest("[data-um]"); if (b) { uMode = b.dataset.um; unitView(); for (const a of $("uStage").getAnimations({ subtree: true })) a.currentTime = 0; } });
+  $("uMode").addEventListener("click", (e) => { const b = e.target.closest("[data-um]"); if (b) { uMode = b.dataset.um; unitView(); for (const a of $("uStage").getAnimations({ subtree: true })) a.currentTime = 0; } });
   $("uTiers").addEventListener("click", (e) => { const b = e.target.closest("[data-tier]"); if (b) { uTier = +b.dataset.tier; unitView(); } });
   for (const b of document.querySelectorAll("[data-ut]")) b.addEventListener("click", () => { uTab = b.dataset.ut; unitView(); });
   for (const [id, dd] of [["uPrev", -1], ["uNext", 1]]) $(id).addEventListener("click", () => { const op = opened(); deckSel = op[(op.indexOf(deckSel) + dd + op.length) % op.length]; unitView(); });
