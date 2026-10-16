@@ -236,8 +236,8 @@ button.big { font-family: var(--display); font-weight: 400; font-size: 22px; bac
 .code { font-family: var(--display); font-size: 34px; color: var(--gold); letter-spacing: 0.1em; }
 .row2 small { display: block; font-size: 10px; color: var(--muted); font-weight: 700; }
 .chList { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 6px; }
-.chList button { width: 100%; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 8px; text-align: left; padding: 6px 10px; min-height: 48px; font-size: 13px; }
-.chList .no { font-family: var(--display); font-size: 20px; text-align: center; font-variant-numeric: tabular-nums; }
+.chList button { width: 100%; display: grid; grid-template-columns: minmax(44px, auto) minmax(0, 1fr) auto; align-items: center; gap: 8px; text-align: left; padding: 6px 10px; min-height: 48px; font-size: 13px; }
+.chList .no { font-family: var(--display); font-size: 20px; text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; } /* 100장 넘으면 세 자리라 줄이 바뀌었음 */
 .chList small { display: block; font-size: 11px; color: var(--muted); font-weight: 700; }
 .chList .st { font-size: 11px; font-weight: 800; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
 .chList .ul { display: inline-flex; align-items: center; gap: 4px; }
